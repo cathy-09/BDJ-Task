@@ -1,0 +1,61 @@
+﻿@model BDJ.Models.LineSearchViewModel
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<div class="text-center">
+    <h2>
+        Home
+        |
+        <a asp-area="" asp-controller="Line" asp-action="Search">Search the Lines</a>
+        |
+        <a asp-area="" asp-controller="Reservation" asp-action="Index">My tickets</a>
+        |
+        <form id="logoutForm" style="display: inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button class="underline-button" style="background: none; border: 0px solid white; color: #0366d6; font-weight: 500;" id="logout" type="submit"><a>Logout</a></button>
+        </form>
+    </h2>
+</div>
+
+
+<form class="form-inline d-flex mb-3" method="get" asp-controller="Line" asp-action="Search">
+    <div class="form-group flex-grow-1 me-2">
+        <input type="text" name="searchString" class="form-control w-100" placeholder="Search">
+    </div>
+    <button type="submit" class="btn btn-outline-primary">
+        <i class="fas fa-search"></i> Search
+    </button>
+</form>
+
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Train</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Departure Time</th>
+            <th>Arrival Time</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var line in Model.Lines)
+
+        {
+            <tr>
+                <td>@line.Train.Number</td>
+                <td>@line.Departure</td>
+                <td>@line.Destination</td>
+                <td>@line.DepartureTime</td>
+                <td>@line.ArrivalTime</td>
+                <td>
+                    <a class="btn btn-sm btn-primary" asp-controller="Line" asp-action="Reserve" asp-route-id="@line.Id">Reserve</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>

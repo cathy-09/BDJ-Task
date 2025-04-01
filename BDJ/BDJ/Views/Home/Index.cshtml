@@ -1,0 +1,75 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using BDJ.Data.Models;
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="text-center">
+            <h2>
+                Home
+                |
+                <a asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                |
+                <a asp-area="" asp-controller="Line" asp-action="Index">Lines</a>
+                |
+                <a asp-area="" asp-controller="Train" asp-action="Index">Trains</a>
+                |
+                <form id="logoutForm" style="display: inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button class="underline-button" style="background: none; border: 0px solid white; color: #0366d6; font-weight: 500;" id="logout" type="submit"><a>Logout</a></button>
+                </form>
+            </h2>
+        </div>
+    }
+    else
+    {
+        <div class="text-center">
+            <h2>
+                Home
+                |
+                <a asp-area="" asp-controller="Line" asp-action="Search">Search the Lines</a>
+                |
+                <a asp-area="" asp-controller="Reservation" asp-action="Index">My tickets</a>
+                |
+                <form id="logoutForm" style="display: inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button class="underline-button" style="background: none; border: 0px solid white; color: #0366d6; font-weight: 500;" id="logout" type="submit"><a>Logout</a></button>
+                </form>
+            </h2>
+        </div>
+    }
+}
+else
+{
+    <h2 class="text-center">
+        Home
+        |
+        <a asp-area="Identity" asp-page="/Account/Login">Login</a>
+        |
+        <a asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </h2>
+}
+
+<p class="text-justify">
+    Български държавни железници (БДЖ)
+    Български държавни железници (БДЖ) е националният железопътен оператор на България, осигуряващ превоз на пътници и товари по железопътната мрежа на страната. Основана през 1888 г., компанията играе ключова роля в транспортната система на България, като свързва различни региони и подпомага икономическото развитие.
+
+    Основни услуги на БДЖ
+    Пътнически превози – включват бързи, експресни и крайградски влакове, които свързват големите градове и малките населени места.
+
+    Товарни превози – предлагат транспорт на различни видове стоки, като допринасят за индустриалния и търговския сектор.
+
+    Международни връзки – осигуряват свързаност с други европейски железопътни мрежи.
+
+    Развитие и модернизация
+    В последните години БДЖ инвестира в модернизация на подвижния състав, обновяване на гарите и внедряване на нови технологии за по-добро обслужване на клиентите. Въпреки предизвикателствата, свързани с остарялата инфраструктура и нуждата от допълнително финансиране, компанията остава основен играч в транспорта на България.
+
+    БДЖ продължава да бъде важна част от обществения транспорт, като осигурява достъпност и екологично чист начин на придвижване за хиляди пътници всеки ден.
+</p>
